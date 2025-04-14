@@ -1,0 +1,26 @@
+{
+  "name": "shortcutbackend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heckerguy/shortcutbackend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heckerguy/shortcutbackend/issues"
+  },
+  "homepage": "https://github.com/heckerguy/shortcutbackend#readme",
+  "description": "",
+  "dependencies": {
+    "@netlify/functions": "^3.0.4",
+    "express": "^5.1.0",
+    "redis": "^4.7.0",
+    "serverless-http": "^3.2.0"
+  }
+}

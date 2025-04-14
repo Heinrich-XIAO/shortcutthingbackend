@@ -1,0 +1,19 @@
+# Node.js dependencies
+node_modules/
+
+# Netlify build artifacts
+.netlify/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+.idea/
