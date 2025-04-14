@@ -1,13 +1,14 @@
 const express = require("express");
 const serverless = require("serverless-http");
 const redis = require("redis");
+require("dotenv").config();
 
 const app = express();
 const router = express.Router();
 
 // Connect to Redis
 const redisClient = redis.createClient({
-  url: "redis://localhost:6379" // Replace with your Redis connection string
+  url: process.env.REDIS_URL || "redis://localhost:6379" // Default to localhost if not set in env
 });
 
 redisClient.on("error", (err) => console.error("Redis Client Error", err));
