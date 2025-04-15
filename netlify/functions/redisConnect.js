@@ -11,8 +11,7 @@ client.connect().catch(console.error);
 
 exports.handler = async (event, context) => {
   try {
-    console.log('Event:', event.body);
-    const { uuid } = JSON5.parse(event.body);
+    const uuid = event.rawQuery.split('=')[1];
 
     // Fetch all items from the 'shortcuts' list
     const shortcuts = await client.lRange('shortcuts', 0, -1);
