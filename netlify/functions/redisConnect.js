@@ -10,8 +10,8 @@ client.connect().catch(console.error);
 
 exports.handler = async (event, context) => {
   try {
-    // Example: Set a key-value pair in Redis
-    await client.set('exampleKey', 'exampleValue');
+    // Initialize a list in Redis called 'shortcuts'
+    await client.rPush('shortcuts', 'shortcut1', 'shortcut2', 'shortcut3');
 
     // Example: Get the value of the key from Redis
     const value = await client.get('exampleKey');
@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: 'Connected to Redis successfully!',
+        message: 'Connected to Redis successfully and initialized shortcuts list!',
         value,
       }),
     };
