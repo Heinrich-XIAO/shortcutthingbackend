@@ -10,24 +10,36 @@ client.connect().catch(console.error);
 
 exports.handler = async (event, context) => {
   try {
-    // Initialize a list in Redis called 'shortcuts'
-    await client.rPush('shortcuts', 'shortcut1', 'shortcut2', 'shortcut3');
+    const { uuid } = JSON.parse(event.body);
 
-    // Example: Get the value of the key from Redis
-    const value = await client.get('exampleKey');
+    // Fetch all items from the 'shortcuts' list
+    const shortcuts = await client.lRange('shortcuts', 0, -1);
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: 'Connected to Redis successfully and initialized shortcuts list!',
-        value,
-      }),
-    };
+    // Find the shortcut with the matching uuid
+    const matchingShortcut = shortcuts.find((shortcut) => {
+      const parsedShortcut = JSON.parse(shortcut);
+      return parsedShortcut.uuid === uuid;
+    });
+
+    if (matchingShortcut) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: 'Shortcut found!',
+          shortcut: JSON.parse(matchingShortcut),
+        }),
+      };
+    } else {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: 'Shortcut not found' }),
+      };
+    }
   } catch (error) {
-    console.error('Error connecting to Redis:', error);
+    console.error('Error reading from Redis:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to connect to Redis' }),
+      body: JSON.stringify({ error: 'Failed to read from Redis' }),
     };
   }
 };
