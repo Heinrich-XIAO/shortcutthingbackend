@@ -17,6 +17,7 @@ exports.handler = async (event, context) => {
 
     // Find the shortcut with the matching uuid
     const matchingShortcut = shortcuts.find((shortcut) => {
+      console.log('Checking shortcut:', shortcut);
       const parsedShortcut = JSON.parse(shortcut);
       return parsedShortcut.uuid === uuid;
     });
