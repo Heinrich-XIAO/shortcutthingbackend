@@ -11,6 +11,7 @@ client.connect().catch(console.error);
 
 exports.handler = async (event, context) => {
   try {
+    console.log('Event:', event.body);
     const { uuid } = JSON5.parse(event.body);
 
     // Fetch all items from the 'shortcuts' list
