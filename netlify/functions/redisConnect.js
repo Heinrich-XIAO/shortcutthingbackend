@@ -1,4 +1,5 @@
 const redis = require('redis');
+const JSON5 = require('json5');
 
 // Create a Redis client
 const client = redis.createClient({
@@ -10,7 +11,7 @@ client.connect().catch(console.error);
 
 exports.handler = async (event, context) => {
   try {
-    const { uuid } = JSON.parse(event.body);
+    const { uuid } = JSON5.parse(event.body);
 
     // Fetch all items from the 'shortcuts' list
     const shortcuts = await client.lRange('shortcuts', 0, -1);
@@ -18,7 +19,7 @@ exports.handler = async (event, context) => {
     // Find the shortcut with the matching uuid
     const matchingShortcut = shortcuts.find((shortcut) => {
       console.log('Checking shortcut:', shortcut);
-      const parsedShortcut = JSON.parse(shortcut);
+      const parsedShortcut = JSON5.parse(shortcut);
       return parsedShortcut.uuid === uuid;
     });
 
@@ -31,7 +32,7 @@ exports.handler = async (event, context) => {
         },
         body: JSON.stringify({
           message: 'Shortcut found!',
-          shortcut: JSON.parse(matchingShortcut),
+          shortcut: JSON5.parse(matchingShortcut),
         }),
       };
     } else {
