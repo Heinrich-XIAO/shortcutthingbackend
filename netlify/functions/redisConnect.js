@@ -24,6 +24,10 @@ exports.handler = async (event, context) => {
     if (matchingShortcut) {
       return {
         statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
         body: JSON.stringify({
           message: 'Shortcut found!',
           shortcut: JSON.parse(matchingShortcut),
@@ -32,6 +36,10 @@ exports.handler = async (event, context) => {
     } else {
       return {
         statusCode: 404,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
         body: JSON.stringify({ error: 'Shortcut not found' }),
       };
     }
@@ -39,6 +47,10 @@ exports.handler = async (event, context) => {
     console.error('Error reading from Redis:', error);
     return {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
       body: JSON.stringify({ error: 'Failed to read from Redis' }),
     };
   }
