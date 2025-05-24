@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
         },
         body: JSON.stringify({
           message: 'Shortcuts found!',
-          shortcuts: JSON5.parse(shortcuts),
+          shortcuts: shortcuts,
         }),
       };
     } else {
